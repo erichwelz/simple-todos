@@ -24,10 +24,14 @@ if (Meteor.isClient) {
       return false;
     }
   })
-}
 
-if (Meteor.isServer) {
-  Meteor.startup(function () {
-    // code to run on server at startup
+  Template.task.events({
+    "click .toggle-checked": function() {
+      //set the checked property to the opposite of its current value
+      Tasks.update(this._id, {$set: {checked: ! this.checked}});
+    },
+    "click .delete": function() {
+      Tasks.remove(this._id);
+    }
   });
 }
